@@ -26,9 +26,30 @@ Step 11: Perform speech recognition with exceptional handling:<Br>
 
 ### Program:
 ```
+import speech_recognition as sr
+def record_audio():
+    r=sr.Recognizer()
+    r.energy_threshold = 6000
+    voicedata=''
+    try:
+        with sr.Microphone() as source:
+            audio=r.listen(source)
+            voicedata=r.recognize_google(audio)            
+    except sr.UnknownValueError:
+        print("Unable to Recognize Audio")
+    except sr.RequestError:
+        print("Unable to find the Resource")
+    return voicedata
+while True:
+    print("Say Something ....")
+    text=record_audio()
+    print(text)
+    if text=="stop" or text=="close" or text=="exit":
+        exit(1)
+```
 
+### Output:
+![{1C2AC8A3-60A1-4819-8DA9-CB0D7E5ABE23}](https://github.com/user-attachments/assets/d4558dd3-614d-4def-96bf-47e5cf06c3c6)
 
-<H3> Output:</H3>
-Show the results here
-
-<H3> Result:</H3>
+### Result:
+Thus, The implementation of speech recognition is executed successfully.
